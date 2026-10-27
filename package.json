@@ -1,0 +1,7 @@
+{
+  "name": "rm1-advertising",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build.mjs", "dev": "node server.mjs", "check": "node --check app.js && node --check motion.js && node --check sign-scene.js && node verify.mjs" }
+}

@@ -1,0 +1,9 @@
+node_modules/
+.tools/
+tools/
+assets/source-*.html
+assets/hero-concept.png
+assets/preview.png
+*.log
+.DS_Store
+.env*
