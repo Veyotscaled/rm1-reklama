@@ -66,12 +66,12 @@ export function initMotion({ gsap, ScrollTrigger, Lenis } = {}) {
       title.innerHTML=originalTitle.split(/<br\s*\/?\s*>/i).map(row => `<span class="hero-line" aria-hidden="true" style="display:block;overflow:hidden;color:inherit;padding:.08em .14em .12em 0;margin:-.08em -.14em -.12em 0"><span class="hero-line-ink" style="display:block;transform-origin:left center">${row.replace(/<span(\s|>)/g,'<span style="color:var(--red)"$1')}</span></span>`).join('');
       disposers.push(() => {title.innerHTML=originalTitle;title.removeAttribute('aria-label');});
     }
-    const intro=gsap.context(() => {
+    const intro=hero?gsap.context(() => {
       gsap.from('.hero-kicker',{y:15,opacity:0,duration:.5,ease:'power3.out'});
       gsap.from('.hero-line-ink',{yPercent:110,rotation:4,duration:.6,stagger:.1,ease:'power3.out',delay:.12,clearProps:'transform'});
       gsap.from('.hero-copy,.hero-actions',{y:20,opacity:0,duration:.6,stagger:.1,ease:'power3.out',delay:.5,clearProps:'transform,opacity'});
-    });
-    disposers.push(() => intro.revert());
+    }):null;
+    disposers.push(() => intro?.revert());
   }
   on(toggle,'click',() => {paused=!paused;toggle.setAttribute('aria-pressed',String(paused));toggle.innerHTML=paused ? 'Відновити рух <span>↗</span>' : 'Призупинити рух <span>Ⅱ</span>';textTween?.paused(paused||!tickerVisible);document.dispatchEvent(new CustomEvent('rm1:motionchange',{detail:{paused}}));});
   on(document,'visibilitychange',() => {last=0;previousScroll=window.scrollY;if(document.hidden)textTween?.pause();else if(!paused&&tickerVisible)textTween?.resume();});
